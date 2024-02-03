@@ -1,0 +1,47 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    int n,sum=0,i=0;
+    cin >> n;
+    vector<int> priority(n,0),burst(n,0),pt(n,0);
+    for(auto &x:priority)
+        cin >> x;
+    for(auto &x:burst)
+        cin >> x;
+    vector<pair<int,int>> pq;
+    map<int,int> mp;
+    for(int i=0; i<n; i++)
+    {
+        pq.push_back({priority[i],burst[i]});
+        mp[priority[i]]=i+1;
+    }
+    sort(pq.begin(),pq.end());
+    cout << "\nPriority Scheduling Gantt Chart: "  << endl;
+    while(i<n)
+    {
+        cout << "P-" << mp[pq[i].first] << " ";
+        pt[mp[pq[i].first]-1]=sum;
+        sum+=pq[i].second;
+        i++;
+    }
+    cout << endl;
+    cout << "\nWaiting Time per Process: "  << endl;
+    sum=0;
+    for(auto &x:pt)
+    {
+        cout << x << ' ';
+        sum+=x;
+    }
+    cout << endl;
+    cout << "\nAverage Waiting Time: ";
+    cout << (double)sum/n << endl;
+    return 0;
+}
+
+/*
+5
+3 1 4 5 2
+10 1 2 1 5
+*/
